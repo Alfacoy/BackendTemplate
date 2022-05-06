@@ -6,3 +6,6 @@ package-lock.json
 
 /* --- Webstorm ---*/
 .idea
+
+/* --- ENVIROMENT --- */
+.env

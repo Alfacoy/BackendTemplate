@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 
+import APISchedule from "../routes/schedule.js";
+import APIAuth from "../routes/user.js";
+
 import config from "../config.js";
 import __dirname from "../utils.js";
 
@@ -19,7 +22,8 @@ export default class Server {
     }
 
     routes = () => {
-
+        this.app.use('/api/auth', APIAuth);
+        this.app.use('/api/schedule',APISchedule);
     }
 
     listen = () => {

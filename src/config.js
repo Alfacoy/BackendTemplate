@@ -6,7 +6,7 @@ const config = {
         port: process.env.PORT || 8080
     },
     mongo: {
-        connect: ''
+        connect: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.r7whn.mongodb.net/${process.env.MONGO_COLLECTION}`
     }
 }
 
