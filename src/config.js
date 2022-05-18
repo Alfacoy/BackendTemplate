@@ -7,6 +7,9 @@ const config = {
     },
     mongo: {
         connect: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.r7whn.mongodb.net/${process.env.MONGO_COLLECTION}`
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET
     }
 }
 

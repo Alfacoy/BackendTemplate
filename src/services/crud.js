@@ -9,42 +9,45 @@ try{
 
 export default class Crud {
     constructor(collection, schema) {
-        this.DB = mongoose.model(collection,schema);
+        this.DB = mongoose.model(collection, schema);
     }
 
-    async save (data) {
+    async save(data) {
         try {
             const {_id} = await this.DB.create(data);
-            return {status: 'Success',payload: _id};
-        } catch (error){
+            return {status: 'Success', payload: _id};
+        } catch (error) {
             return {status: 'Error', message: error};
         }
     }
 
-    async getAll (filter) {
+    async getAll(filter) {
         try {
             const res = await this.DB.find(filter);
-            if(res.length === 0) return {status: 'Error', message: 'No hay un registro con los datos suministrados.'}
+            if (res.length === 0) return {status: 'Error', message: 'No hay un registro con los datos suministrados.'}
             return {status: 'Success', q: res.length, payload: res}
         } catch (error) {
             return {status: 'Error', message: error};
         }
     }
 
-    async getById (id) {
+    async getById(id) {
         try {
             const res = await this.DB.find({_id: id});
-            if(res.length === 0) return {status: 'Error', message: 'No existe el registro solicitado.'}
-            return {status: 'Success', payload: res}
+            if (res.length === 0) return {status: 'Error', message: 'No existe el registro solicitado.'}
+            return {status: 'Success', payload: res[0]}
         } catch (error) {
             return {status: 'Error', message: error};
         }
     }
 
-    async update (filter,data) {
+    async update(filter, data) {
         try {
-            const res = await this.DB.updateOne(filter,data);
-            if(res.matchedCount === 0) return {status: 'Error', message: 'No hay un registro que coincida con el ID proporcionado.'}
+            const res = await this.DB.updateOne(filter, data);
+            if (res.matchedCount === 0) return {
+                status: 'Error',
+                message: 'No hay un registro que coincida con el ID proporcionado.'
+            }
             return {status: 'Success', message: 'Registro actualizado correctamente.'}
         } catch (error) {
             return {status: 'Error', message: error};
@@ -52,7 +55,7 @@ export default class Crud {
     }
 
     //TESTEAR LOS DELETE
-    async deleteAll () {
+    async deleteAll() {
         try {
             await this.DB.deleteMany();
             return {status: 'Success', message: 'Los registros fueron eliminados correctamente.'}
@@ -61,11 +64,14 @@ export default class Crud {
         }
     }
 
-    async delete (filter) {
+    async delete(filter) {
         try {
             const res = await this.DB.deleteOne(filter);
-            if(res.deletedCount === 0) return {status: 'Error', message: 'No hay un registro que coincida con el ID proporcionado.'}
-            return  {status: 'Success', message: 'Registro eliminado correctamente.'}
+            if (res.deletedCount === 0) return {
+                status: 'Error',
+                message: 'No hay un registro que coincida con el ID proporcionado.'
+            }
+            return {status: 'Success', message: 'Registro eliminado correctamente.'}
         } catch (error) {
             return {status: 'Error', message: error};
         }

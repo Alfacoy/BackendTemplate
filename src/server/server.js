@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
 
-import APISchedule from "../routes/schedule.js";
-import APIAuth from "../routes/user.js";
+import APIAuth from "../routes/auth.js";
 
 import config from "../config.js";
 import __dirname from "../utils.js";
+import passportInitialize from "../passportConfig.js";
 
 export default class Server {
     constructor() {
@@ -19,11 +20,12 @@ export default class Server {
         this.app.use(express.static(`${__dirname}/public`));
         this.app.use(cors());
         this.app.use(express.json());
+        passportInitialize();
+        this.app.use(passport.initialize());
     }
 
     routes = () => {
         this.app.use('/api/auth', APIAuth);
-        this.app.use('/api/schedule',APISchedule);
     }
 
     listen = () => {

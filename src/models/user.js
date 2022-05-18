@@ -21,8 +21,16 @@ const userSchema = new mongoose.Schema( {
         isActive: {
             type: Boolean,
             default: true
+        },
+        role: {
+            type: String,
+            enum: {
+                values: ['Admin','User'],
+                message: 'El rol {VALUE} no es válido.'
+            },
+            default: 'User'
         }
-},
+    },
     {
         timestamps: true
     })
